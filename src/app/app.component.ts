@@ -1,3 +1,4 @@
+import { Post } from './posts/post.model';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'mean-proj';
+  storedPosts: Post[] =[];
+
+  onPostAdded(event: any) {
+    this.storedPosts.push(event);
+  }
 }
