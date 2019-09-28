@@ -1,1 +1,19 @@
-// component css goes here
+a {
+  text-decoration: none;
+  color: white;
+}
+.spacer {
+  // display: flex;
+  // justify-content: space-between;
+  // flex-direction: row;
+  flex: 1 1 auto;
+}
+ul {
+  list-style: none;
+}
+
+// div > mat-toolbar {
+//   display: flex;
+//   justify-content: space-around;
+//   flex-direction: row;
+// }

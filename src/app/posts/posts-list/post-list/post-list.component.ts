@@ -26,7 +26,9 @@ export class PostListComponent {
   onDelete(postId: any){
     this.postService.deletePost(postId)
     .subscribe(x=>{
-      console.log('deleted')
+      console.log('deleted');
+      this.postService.posts = this.postService.posts.filter(x=>x.id != postId);
+      this.postService.postsUpdated.next(this.postService.posts);
     });
   }
 

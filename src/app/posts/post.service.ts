@@ -29,4 +29,13 @@ export class PostService {
   deletePost(postId) {
     return this.http.delete(`http://localhost:3000/api/posts/${postId}`);
   }
+
+  getPostById(id: string){
+    return this.posts.find(x=>x.id === id);
+  }
+
+  updatePost(id: string, title:string, content: string){
+    const post: Post = {id: id, title: title, content: content};
+    return this.http.put(`http://localhost:3000/api/posts/${post.id}`, post);
+  }
 }

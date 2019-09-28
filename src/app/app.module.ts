@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header/header.component';
 import { PostCreateComponent } from './posts/posts-create/post-create/post-create.component';
@@ -17,6 +18,7 @@ import { PostListComponent } from './posts/posts-list/post-list/post-list.compon
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
     MatInputModule,

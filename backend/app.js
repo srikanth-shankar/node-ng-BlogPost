@@ -44,4 +44,12 @@ app.delete('/api/posts/:id', (req, res, next)=>{
   res.status(200).json({message: 'post deleted successfully'});
 })
 
+app.put("/api/posts/:id", (req, res, next)=>{
+  const post = {_id: req.body.id, title: req.body.title, content: req.body.content}
+  Post.updateOne({_id: req.params.id}, post).then((result)=>{
+    console.log(result);
+    res.status(201).json(update, "suxesful");
+  });
+})
+
 module.exports = app;
