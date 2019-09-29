@@ -2,6 +2,7 @@ import { PostService } from './../../post.service';
 import { Component, Input } from '@angular/core';
 import { Post } from '../../post.model';
 import { Subscription } from 'rxjs';
+import { PageEvent } from '@angular/material';
 
 @Component({
     selector: 'post-list',
@@ -11,12 +12,16 @@ import { Subscription } from 'rxjs';
 export class PostListComponent {
   posts: Post[];
   postSub: Subscription;
+  totalPosts = 10;
+  postsPerPg = 2;
+  pageSzOptions= [1, 2,5,10];
+  currPg = 1;
   constructor(private postService: PostService){}
   ngOnInit() {
     this.postSub = this.postService.postsUpdated.subscribe((posts: any)=>{
       this.posts = posts;
     });
-    this.postService.getPosts()
+    this.postService.getPosts(this.postsPerPg, this.currPg)
                   .subscribe((posts:any)=>{
                     this.posts=posts;
                     this.postService.posts = this.posts;
@@ -30,6 +35,16 @@ export class PostListComponent {
       this.postService.posts = this.postService.posts.filter(x=>x.id != postId);
       this.postService.postsUpdated.next(this.postService.posts);
     });
+  }
+
+  onPgChanged(event: PageEvent){
+    this.currPg = event.pageIndex + 1;
+    this.postsPerPg = event.pageSize;
+    this.postService.getPosts(this.postsPerPg, this.currPg)
+                  .subscribe((posts:any)=>{
+                    this.posts=posts;
+                    this.postService.posts = this.posts;
+                  });
   }
 
   ngOnDestroy(){

@@ -2,7 +2,7 @@ import { PostService } from './../../post.service';
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Post } from '../../post.model';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
     selector: 'post-create',
@@ -14,7 +14,7 @@ export class PostCreateComponent {
   postId: string;
   post: Post;
 
-  constructor(public postService: PostService, public route: ActivatedRoute){}
+  constructor(public postService: PostService, public route: ActivatedRoute, private router: Router){}
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -38,6 +38,7 @@ export class PostCreateComponent {
         tempPost.id = data.id;
         this.postService.posts.push(tempPost);
         this.postService.postsUpdated.next(this.postService.posts);
+        this.router.navigate(['/']);
       });
     } else {
       this.postService.updatePost(this.post.id, postForm.value.title, postForm.value.content)
@@ -46,6 +47,7 @@ export class PostCreateComponent {
           this.postService.posts[idx].title = postForm.value.title;
           this.postService.posts[idx].content = postForm.value.content;
           this.postService.postsUpdated.next(this.postService.posts);
+          this.router.navigate(['/']);
         })
     }
 

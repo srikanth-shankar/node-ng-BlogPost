@@ -11,8 +11,9 @@ export class PostService {
   postsUpdated = new Subject<Post[]>();
 
   constructor(private http: HttpClient){}
-  getPosts() {
-    return this.http.get('http://localhost:3000/api/posts').pipe(map((x:any)=>{
+  getPosts(pgSz: number, currPg: number) {
+    const queryParams = `?pgSz=${pgSz}&currPg=${currPg}`;
+    return this.http.get('http://localhost:3000/api/posts'+queryParams).pipe(map((x:any)=>{
       return x.posts.map(post => {
         return {
           title: post.title,
