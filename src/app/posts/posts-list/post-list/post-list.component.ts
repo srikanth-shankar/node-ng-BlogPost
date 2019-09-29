@@ -22,8 +22,9 @@ export class PostListComponent {
       this.posts = posts;
     });
     this.postService.getPosts(this.postsPerPg, this.currPg)
-                  .subscribe((posts:any)=>{
-                    this.posts=posts;
+                  .subscribe((postData:any)=>{
+                    this.posts=postData.posts;
+                    this.totalPosts = postData.totalPosts;
                     this.postService.posts = this.posts;
                   });
   }
@@ -41,8 +42,8 @@ export class PostListComponent {
     this.currPg = event.pageIndex + 1;
     this.postsPerPg = event.pageSize;
     this.postService.getPosts(this.postsPerPg, this.currPg)
-                  .subscribe((posts:any)=>{
-                    this.posts=posts;
+                  .subscribe((postData:any)=>{
+                    this.posts=postData.posts;
                     this.postService.posts = this.posts;
                   });
   }

@@ -14,12 +14,12 @@ export class PostService {
   getPosts(pgSz: number, currPg: number) {
     const queryParams = `?pgSz=${pgSz}&currPg=${currPg}`;
     return this.http.get('http://localhost:3000/api/posts'+queryParams).pipe(map((x:any)=>{
-      return x.posts.map(post => {
+      return {posts: x.posts.map(post => {
         return {
           title: post.title,
-        content: post.content,
-        id: post._id
-      }})
+          content: post.content,
+          id: post._id
+      }}), totalPosts: x.totalPosts}
     }));
   }
 
